@@ -29,7 +29,7 @@
             {{-- Stories --}}
             <section>
                 <ul class="flex overflow-x-auto scrollbar-hide items-center gap-2">
-                    @for ($i = 0; $i < 12; $i++)
+                    @for ($i = 0; $i < 10; $i++)
                         <li class="flex flex-col justify-center w-20 gap-1 p-2">
                             <x-avatar story src="https://source.unsplash.com/500x500/?face-{{ $i }}"
                                 alt="Random Face" class="h-14 w-14" />
@@ -37,6 +37,12 @@
                         </li>
                     @endfor
                 </ul>
+            </section>
+
+            {{-- Post --}}
+            <section class="mt-5 space-y-4 p-2">
+                <livewire:post.item />
+                <livewire:post.item />
             </section>
         </aside>
 
