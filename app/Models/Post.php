@@ -16,9 +16,9 @@ class Post extends Model
         'allow_commenting'=>'boolean',
     ];
 
-    // function media() {
-    //     return $this->morphMany(Media::class,'mediable');
-    // }
+    function media() {
+        return $this->morphMany(Media::class,'mediable');
+    }
 
     function user() {
         return $this->belongsTo(User::class);
