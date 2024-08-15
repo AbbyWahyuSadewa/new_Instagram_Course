@@ -164,7 +164,7 @@
             </a></li>
 
         <li>
-            <div class="flex items-center gap-5">
+            <div onclick="Livewire.dispatch('openModal', { component: 'post.create' })" class="flex items-center gap-5">
 
                 <span class="border border-gray-600  rounded-lg p-px">
 

@@ -13,7 +13,7 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
     <style>
-        [x-cloak]{
+        [x-cloak] {
             display: none !important;
         }
     </style>
@@ -38,6 +38,9 @@
 
         </div>
     </div>
+
+    @livewire('wire-elements-modal')
+
 </body>
 
 </html>
