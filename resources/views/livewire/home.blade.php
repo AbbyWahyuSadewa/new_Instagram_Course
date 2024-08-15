@@ -7,15 +7,18 @@
             </div>
 
             <div class="col-span-8 flex justify-center px-2">
-                <input type="text" placeholder="Search" class="border-0 outline-none w-full focus:outline-none bg-gray-100 rounded-lg focus:ring-0 hover:ring-0">
+                <input type="text" placeholder="Search"
+                    class="border-0 outline-none w-full focus:outline-none bg-gray-100 rounded-lg focus:ring-0 hover:ring-0">
 
             </div>
             <div class="col-span-1 flex justify-center">
                 <a href="#">
                     <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-7">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                          </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-7">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                        </svg>
 
                     </span>
                 </a>
@@ -41,8 +44,13 @@
 
             {{-- Post --}}
             <section class="mt-5 space-y-4 p-2">
-                <livewire:post.item />
-                <livewire:post.item />
+                @if ($posts)
+                    @foreach ($posts->take(10) as $post)
+                        <livewire:post.item wire:key="post-{{ $post->id }}" :post="$post"/>
+                    @endforeach
+                @else
+                    <p class="font-bold flex justify-center">No posts</p>
+                @endif
             </section>
         </aside>
 
@@ -59,18 +67,19 @@
 
                 <ul class="my-2 space-y-3">
                     @for ($i = 0; $i < 6; $i++)
-                    <li class="flex items-center gap-3">
-                        <x-avatar src="https://source.unsplash.com/500x500/?face-{{ $i }}" class="w-12 h-12" />
-                        <div class="grid grid-cols-7 w-full gap-2">
-                            <div class="col-span-5">
-                                <h5 class="font-semibold truncate text-sm">{{ fake()->name }}</h5>
-                                <p class="text-xs truncate">Followed by {{ fake()->name }}</p>
+                        <li class="flex items-center gap-3">
+                            <x-avatar src="https://source.unsplash.com/500x500/?face-{{ $i }}"
+                                class="w-12 h-12" />
+                            <div class="grid grid-cols-7 w-full gap-2">
+                                <div class="col-span-5">
+                                    <h5 class="font-semibold truncate text-sm">{{ fake()->name }}</h5>
+                                    <p class="text-xs truncate">Followed by {{ fake()->name }}</p>
+                                </div>
+                                <div class="col-span-2 flex text-right justify-end">
+                                    <button class="font-bold text-blue-500 ml-auto text-sm">Follow</button>
+                                </div>
                             </div>
-                            <div class="col-span-2 flex text-right justify-end">
-                                <button class="font-bold text-blue-500 ml-auto text-sm">Follow</button>
-                            </div>
-                        </div>
-                    </li>
+                        </li>
                     @endfor
                 </ul>
             </section>
@@ -78,13 +87,20 @@
             {{-- App links  --}}
             <section class="mt-5">
                 <ol class="flex gap-2 flex-wrap">
-                    <li class="text-xs text-grey-800/90 font-medium"><a href="https://github.com/M4rione" class="hover:underline">About</a></li>
-                    <li class="text-xs text-grey-800/90 font-medium"><a href="#" class="hover:underline">Help</a></li>
-                    <li class="text-xs text-grey-800/90 font-medium"><a href="#" class="hover:underline">API</a></li>
-                    <li class="text-xs text-grey-800/90 font-medium"><a href="#" class="hover:underline">Jobs</a></li>
-                    <li class="text-xs text-grey-800/90 font-medium"><a href="#" class="hover:underline">Privacy</a></li>
-                    <li class="text-xs text-grey-800/90 font-medium"><a href="#" class="hover:underline">Udemy</a></li>
-                    <li class="text-xs text-grey-800/90 font-medium"><a href="#" class="hover:underline">Locations</a></li>
+                    <li class="text-xs text-grey-800/90 font-medium"><a href="https://github.com/M4rione"
+                            class="hover:underline">About</a></li>
+                    <li class="text-xs text-grey-800/90 font-medium"><a href="#" class="hover:underline">Help</a>
+                    </li>
+                    <li class="text-xs text-grey-800/90 font-medium"><a href="#" class="hover:underline">API</a>
+                    </li>
+                    <li class="text-xs text-grey-800/90 font-medium"><a href="#" class="hover:underline">Jobs</a>
+                    </li>
+                    <li class="text-xs text-grey-800/90 font-medium"><a href="#"
+                            class="hover:underline">Privacy</a></li>
+                    <li class="text-xs text-grey-800/90 font-medium"><a href="#" class="hover:underline">Udemy</a>
+                    </li>
+                    <li class="text-xs text-grey-800/90 font-medium"><a href="#"
+                            class="hover:underline">Locations</a></li>
                 </ol>
 
                 <footer class="text-gray-800/90 mt-6 text-sm">@2024 INSTAGRAM COURSE</footer>
