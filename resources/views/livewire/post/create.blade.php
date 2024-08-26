@@ -7,7 +7,7 @@
             <button wire:click="$dispatch('closeModal')" class=" font-bold">
                 x
             </button>
-
+`
 
             <div class="text-lg font-bold">
                 Create new post
