@@ -41,6 +41,8 @@ class Modal extends ModalComponent
                     </button>
                 </div>
             </header>
+
+            <livewire:post.view.item :post="$this->post" />
         </main>
         BLADE;
     }
