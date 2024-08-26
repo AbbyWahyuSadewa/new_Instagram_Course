@@ -13,6 +13,11 @@ class Home extends Component
 
     public $posts;
 
+    #[On('closeModal')]
+    function raveURL() {
+        $this->js("history.replaceState({},'','/')");
+    }
+
 
 
     #!!!importand inject the class above
