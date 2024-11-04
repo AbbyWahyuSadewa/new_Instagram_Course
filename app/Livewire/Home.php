@@ -35,7 +35,7 @@ class Home extends Component
 
 
 
-        $this->posts = Post::latest()->get();
+        $this->posts = Post::with('comments')->latest()->get();
 
 
         // dd( $this->posts);
