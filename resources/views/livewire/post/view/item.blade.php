@@ -40,6 +40,9 @@
         </header>
 
         <main>
+
+            @if ($comments)
+            @foreach ($comments as $comment)
             <section class="flex flex-col gap-2">
                 {{-- main comment --}}
                 <div class="flex items-center gap-3 py-2">
@@ -49,8 +52,8 @@
                         {{-- comment --}}
                         <div class="col-span-6 flex flex-warp text-sm">
                             <p>
-                                <span class="font-bold text-sm"> {{ $post->user->name }} </span>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis sapiente dolore quidem animi.
+                                <span class="font-bold text-sm"> {{ $comment->user->name }} </span>
+                                {{ $comment->body }}
                             </p>
                         </div>
 
@@ -66,45 +69,57 @@
 
                         {{-- footer --}}
                         <div class="col-span-7 flex gap-2 text-sm items-center text-gray-700">
-                            <span>2d</span>
+                            <span>{{ $comment->created_at->diffForHumans() }}</span>
                             <span class="font-bold">345 Likes</span>
                             <span class="font-semibold">Reply</span>
                         </div>
                     </div>
                 </div>
 
-                {{-- reply --}}
-                <div class="flex items-center gap-3 w-11/12 ml-auto py-2">
-                    <x-avatar story src="https://source.unsplash.com/500x500/?face-{{ rand(1, 10) }}" class="size-8 mb-auto" />
+                @if ($comment->replies)
+                    @foreach ($comment->replies as $reply)
+                        {{-- reply --}}
+                        <div class="flex items-center gap-3 w-11/12 ml-auto py-2">
+                            <x-avatar story src="https://source.unsplash.com/500x500/?face-{{ rand(1, 10) }}" class="size-8 mb-auto" />
 
-                    <div class="grid grid-cols-7 w-full gap-2">
-                        {{-- comment --}}
-                        <div class="col-span-6 flex flex-warp text-sm">
-                            <p>
-                                <span class="font-bold text-sm"> {{ $post->user->name }} </span>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis sapiente dolore quidem animi.
-                            </p>
-                        </div>
+                            <div class="grid grid-cols-7 w-full gap-2">
+                                {{-- comment --}}
+                                <div class="col-span-6 flex flex-warp text-sm">
+                                    <p>
+                                        <span class="font-bold text-sm"> {{ $reply->user->name }} </span>
+                                        <span class="font-bold">@ {{ $reply->parent->user->name }}</span>
+                                        {{ $reply->body }}
+                                    </p>
+                                </div>
 
-                        {{-- like --}}
-                        <div class="col-span-1 flex text-right justify-end mb-auto">
-                            <button class="font-bold text-sm ml-auto">
-                                {{-- svg --}}
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-3">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                                </svg>
-                            </button>
-                        </div>
+                                {{-- like --}}
+                                <div class="col-span-1 flex text-right justify-end mb-auto">
+                                    <button class="font-bold text-sm ml-auto">
+                                        {{-- svg --}}
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-3">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                                        </svg>
+                                    </button>
+                                </div>
 
-                        {{-- footer --}}
-                        <div class="col-span-7 flex gap-2 text-sm items-center text-gray-700">
-                            <span>2d</span>
-                            <span class="font-bold">345 Likes</span>
-                            <span class="font-semibold">Reply</span>
+                                {{-- footer --}}
+                                <div class="col-span-7 flex gap-2 text-sm items-center text-gray-700">
+                                    <span>{{ $comment->created_at->diffForHumans() }}</span>
+                                    <span class="font-bold">345 Likes</span>
+                                    <span class="font-semibold">Reply</span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    @endforeach
+                @else
+
+                @endif
             </section>
+            @endforeach
+            @else
+                No comments
+            @endif
+
         </main>
         {{-- Footer --}}
         <footer class="mt-auto sticky border-t bottom-0 z-10 bg-white">
@@ -159,8 +174,7 @@
 
             {{-- View Post Modal --}}
             <button
-                onclick="Livewire.dispatch('openModal',{component:'post.view.modal',arguments:{'post':{{ $post->id }}}})"
-                class="text-slate-500/90 text-sm font-medium">View all 98 comments</button>
+                class="text-slate-500/90 text-sm font-medium"> {{ $post->comments->count() }} comments</button>
 
             {{-- Leave Comments --}}
             <form x-data="{ inputText: '' }" class="grid grid-cols-12 items-center w-full">
